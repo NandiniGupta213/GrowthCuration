@@ -652,13 +652,13 @@ header
     text-align: center;
   }
   .header-area .main-nav .logo img {
-    max-height: 50px;
+    max-height: 20px;
   }
   .header-area .container {
     padding: 0px;
   }
   .header-area .logo {
-    margin-left: 30px;
+    margin-left: 0px;
   }
   .header-area .menu-trigger {
     display: block !important;
@@ -1664,19 +1664,39 @@ form#contact button:hover {
 Footer Style
 --------------------------------------------- 
 */
-/* Footer Section Styling */
-.footer-section {
-  color: #fff;
-  padding: 60px 0;
+
+
+/* footer */
+/* Global Resets */
+html, body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden; /* ✅ prevent horizontal scroll */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
+/* Footer Section */
+.footer-section {
+  background: #111;
+  color: #fff;
+  padding: 60px 0;
+}
+
+/* Footer Box Container */
 .footer-box-container {
   background-color: #000;
   display: flex;
@@ -1686,11 +1706,16 @@ Footer Style
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   flex-wrap: wrap;
+  word-break: break-word;
 }
 
+/* Individual Footer Box */
 .footer-box {
   flex: 1;
-  min-width: 280px;
+  min-width: 0;              /* ✅ allows content to shrink within flexbox */
+  padding: 0 10px;           /* ✅ for mobile spacing */
+  word-wrap: break-word;     /* ✅ breaks long words */
+  overflow-wrap: break-word;
 }
 
 .footer-box h4 {
@@ -1730,11 +1755,12 @@ Footer Style
   color: #e0e0e0;
 }
 
-/* Social Icons Section */
+/* Social Icons */
 .social-icons {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;           /* ✅ wrap on small screens */
   gap: 20px;
   margin: 20px 0;
   margin-right: 150px;
@@ -1754,7 +1780,6 @@ Footer Style
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Social Icon Colors */
 .social-icons a.facebook { background: #3b5998; }
 .social-icons a.twitter { background: #1da1f2; }
 .social-icons a.linkedin { background: #0077b5; }
@@ -1762,7 +1787,6 @@ Footer Style
 .social-icons a.youtube { background: #ff0000; }
 .social-icons a.github { background: #333; }
 .social-icons a.whatsapp { background: #25d366; }
-
 
 .social-icons a:hover {
   transform: translateY(-8px) scale(1.1);
@@ -1781,12 +1805,14 @@ Footer Style
   margin: 0;
 }
 
-/* Responsive */
+/* ===================== Responsive ====================== */
+
 @media (max-width: 992px) {
   .footer-box-container {
     flex-direction: column;
     text-align: center;
   }
+
   .footer-box {
     margin-bottom: 30px;
   }
@@ -1795,7 +1821,9 @@ Footer Style
 @media (max-width: 768px) {
   .social-icons {
     gap: 15px;
+    margin-right: 0;
   }
+
   .social-icons a {
     width: 44px;
     height: 44px;
@@ -1807,6 +1835,7 @@ Footer Style
   .social-icons {
     gap: 12px;
   }
+
   .social-icons a {
     width: 40px;
     height: 40px;
@@ -1814,34 +1843,34 @@ Footer Style
   }
 }
 
+/* ✅ Custom for very small screens like 360px–374px */
+@media (max-width: 374px) {
+  .footer-section {
+    padding: 40px 15px;
+  }
 
-@media (max-width: 767px) {
-  .about-us .left-image {
-    bottom: -280px;
+  .footer-box p {
+    font-size: 14px;
+    line-height: 1.6;
   }
-  .our-blog .right-list {
-    margin-left: 0px;
+
+  .footer-box {
+    padding: 0 5px;
   }
-  .our-blog .right-list ul li {
-    display: inline-block;
-    margin-top: 0px;
-    padding-top: 30px;
-    border-top: 1px solid #eee;
+
+  .social-icons {
+    gap: 10px;
+    justify-content: center;
   }
-  .our-blog .right-list .left-content {
-    margin-right: 0px;
-    width: 100%;
-    margin-bottom: 15px;
+
+  .social-icons a {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
-  .our-blog .right-list .right-image,
-  .our-blog .right-list .right-image img {
-    width: 100%;
-  }
-  .phone-info h4 span {
-    display: block;
-    margin-top: 15px;
-  }
-  .phone-info h4 span i {
-    margin-left: 0px;
+
+  .footer-bottom {
+    font-size: 12px;
+    padding-top: 15px;
   }
 }
