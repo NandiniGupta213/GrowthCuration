@@ -1668,6 +1668,7 @@ Footer Style
 
 /* footer */
 /* Global Resets */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -1675,7 +1676,6 @@ html, body {
   overflow-x: hidden; /* ✅ prevent horizontal scroll */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 *,
 *::before,
 *::after {
