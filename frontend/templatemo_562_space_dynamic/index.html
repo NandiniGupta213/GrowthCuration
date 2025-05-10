@@ -761,6 +761,10 @@ async function handleDelete(event) {
 
 window.addEventListener('DOMContentLoaded', loadReviews);
 
+fetch("https://growthcuration-3-wvzs.onrender.com/")
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 
 
 
