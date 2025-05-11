@@ -737,33 +737,42 @@ async function handleDelete(event) {
   const reviewId = event.target.dataset.id;
   const editKey = localStorage.getItem(`editKey_${reviewId}`);
 
-  // Remove the review from DOM immediately
+  // Get the review element closest to the delete button
   const reviewElement = event.target.closest('.review');
-  if (reviewElement) {
-    reviewElement.remove();  // Remove the review element from the DOM
-  }
 
-  const response = await fetch(`https://growthcuration-3-wvzs.onrender.com/Review/delete/${reviewId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ editKey })
-  });
+  try {
+    // Send DELETE request to backend
+    const response = await fetch(`https://growthcuration-3-wvzs.onrender.com/Review/delete/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ editKey })
+    });
 
-  const data = await response.json();
-  if (response.ok) {
-    console.log('Deleted review', reviewId);
-    // If the deletion was successful, you don't need to reload reviews,
-    // because the review was removed from the DOM immediately
-  } else {
-    // If there's an error, log it and restore the deleted review in the DOM
-    console.log('Error deleting review: ' + (data.message || data.error));
-    
-    // You can restore the review element in case of error if needed:
-    // reviewsRow.appendChild(reviewElement);
+    const data = await response.json();
+
+    // Check if the deletion was successful
+    if (response.ok) {
+      console.log(`Successfully deleted review ${reviewId}`);
+      
+      // Remove the review from the DOM only after successful backend deletion
+      if (reviewElement) {
+        reviewElement.remove();
+      }
+    } else {
+      console.error('Error deleting review:', data.message || data.error);
+      // Optionally, add logic to show an error message to the user
+    }
+  } catch (err) {
+    console.error('Error during delete request:', err);
+    // In case of an error, restore the review element to the DOM
+    if (reviewElement) {
+      reviewsRow.appendChild(reviewElement);  // Restore if deletion fails
+    }
   }
 }
+
 
 
 
