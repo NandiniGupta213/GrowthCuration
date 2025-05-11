@@ -737,6 +737,12 @@ async function handleDelete(event) {
   const reviewId = event.target.dataset.id;
   const editKey = localStorage.getItem(`editKey_${reviewId}`);
 
+  // Remove the review from DOM immediately
+  const reviewElement = event.target.closest('.review');
+  if (reviewElement) {
+    reviewElement.remove();  // Remove the review element from the DOM
+  }
+
   const response = await fetch(`https://growthcuration-3-wvzs.onrender.com/Review/delete/${reviewId}`, {
     method: 'DELETE',
     headers: {
@@ -748,16 +754,17 @@ async function handleDelete(event) {
   const data = await response.json();
   if (response.ok) {
     console.log('Deleted review', reviewId);
-
-    // Make sure the correct review container is being removed
-    const reviewElement = document.querySelector(`[data-id="${reviewId}"]`);
-    if (reviewElement) {
-      reviewElement.closest('.review').remove(); // Remove the parent container of the review
-    }
+    // If the deletion was successful, you don't need to reload reviews,
+    // because the review was removed from the DOM immediately
   } else {
+    // If there's an error, log it and restore the deleted review in the DOM
     console.log('Error deleting review: ' + (data.message || data.error));
+    
+    // You can restore the review element in case of error if needed:
+    // reviewsRow.appendChild(reviewElement);
   }
 }
+
 
 
 window.addEventListener('DOMContentLoaded', loadReviews);
