@@ -736,9 +736,9 @@ async function handleEdit(event) {
 async function handleDelete(event) {
   const reviewId = event.target.dataset.id;
   const editKey = localStorage.getItem(`editKey_${reviewId}`);
-
+  
   console.log('Deleting review with ID:', reviewId); // Log the ID being deleted
-  const reviewElement = event.target.closest('.review');
+  const reviewElement = event.target.closest('.review');  // Ensure it selects the correct review container
 
   try {
     // Send DELETE request to backend
@@ -757,11 +757,15 @@ async function handleDelete(event) {
     if (response.ok) {
       console.log(`Successfully deleted review ${reviewId}`);
       
-      // Remove the review from the DOM after successful deletion
+      // Ensure the review element is correctly removed
       if (reviewElement) {
-        reviewElement.remove();
+        reviewElement.remove();  // Remove the review from the DOM
         console.log(`Review with ID ${reviewId} removed from DOM`);
+      } else {
+        console.log(`Review element for ID ${reviewId} not found in DOM`);
       }
+      
+      loadReviews();  // Reload the reviews after deletion
     } else {
       console.error('Error deleting review:', data.message || data.error);
     }
@@ -773,6 +777,7 @@ async function handleDelete(event) {
     }
   }
 }
+
 
 window.addEventListener('DOMContentLoaded', loadReviews);
 
