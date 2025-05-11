@@ -733,7 +733,6 @@ async function handleEdit(event) {
     
   }
 }
-
 async function handleDelete(event) {
   const reviewId = event.target.dataset.id;
   const editKey = localStorage.getItem(`editKey_${reviewId}`);
@@ -749,10 +748,11 @@ async function handleDelete(event) {
   const data = await response.json();
   if (response.ok) {
     console.log('Deleted review', reviewId);
-    // Optionally remove the review from the DOM if deletion was successful
+
+    // Make sure the correct review container is being removed
     const reviewElement = document.querySelector(`[data-id="${reviewId}"]`);
     if (reviewElement) {
-      reviewElement.remove(); // Remove the review from DOM
+      reviewElement.closest('.review').remove(); // Remove the parent container of the review
     }
   } else {
     console.log('Error deleting review: ' + (data.message || data.error));
